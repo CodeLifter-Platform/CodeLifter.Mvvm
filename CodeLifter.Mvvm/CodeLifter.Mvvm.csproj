@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+
+    <!-- Package Information -->
+    <PackageId>CodeLifter.MVVM</PackageId>
+    <Version>1.0.0-beta</Version>
+    <Title>CodeLifter.MVVM</Title>
+    <Authors>Andrew Palmer (a@codelifter.net)</Authors>
+    <Company>CodeLifter LLC</Company>
+    <Description>MVVM components for Blazor Server applications using the CodeLifter platform</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/CodeLifter-Platform/Laconia</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CodeLifter-Platform/Laconia</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>mvvm;blazor;blazor-server;viewmodel;codelifter</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+    <RootNamespace>CodeLifter.Mvvm</RootNamespace>
+    <AssemblyName>CodeLifter.Mvvm</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeLifter.Mvvm.Core\CodeLifter.Mvvm.Core.csproj" />
+  </ItemGroup>
+</Project>
+
