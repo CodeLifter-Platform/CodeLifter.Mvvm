@@ -8,7 +8,7 @@
 
     <!-- Package Information -->
     <PackageId>CodeLifter.MVVM.WebAssembly</PackageId>
-    <Version>1.0.0-beta</Version>
+    <Version>1.0.1-beta</Version>
     <Title>CodeLifter.MVVM.WebAssembly</Title>
     <Authors>Andrew Palmer (a@codelifter.net)</Authors>
     <Company>CodeLifter LLC</Company>

@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFrameworks>net9.0;net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+
+    <!-- Package Information -->
+    <PackageId>CodeLifter.MVVM.Maui.Blazor</PackageId>
+    <Version>1.0.1-beta</Version>
+    <Title>CodeLifter.MVVM.Maui.Blazor</Title>
+    <Authors>Andrew Palmer (a@codelifter.net)</Authors>
+    <Company>CodeLifter LLC</Company>
+    <Description>MVVM components for MAUI Blazor Hybrid applications using the CodeLifter platform</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/CodeLifter-Platform/Laconia</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/CodeLifter-Platform/Laconia</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>mvvm;maui;blazor-hybrid;blazor;mobile;viewmodel;codelifter</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+    <RootNamespace>CodeLifter.Mvvm.Maui.Blazor</RootNamespace>
+    <AssemblyName>CodeLifter.Mvvm.Maui.Blazor</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.51" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="9.0.51" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeLifter.Mvvm.Core\CodeLifter.Mvvm.Core.csproj" />
+  </ItemGroup>
+
+</Project>

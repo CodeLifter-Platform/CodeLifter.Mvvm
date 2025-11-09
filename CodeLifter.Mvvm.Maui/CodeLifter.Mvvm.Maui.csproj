@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net9.0;net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
@@ -20,17 +20,17 @@
 
     <!-- Package Information -->
     <PackageId>CodeLifter.MVVM.Maui</PackageId>
-    <Version>1.0.0-beta</Version>
+    <Version>1.0.1-beta</Version>
     <Title>CodeLifter.MVVM.Maui</Title>
     <Authors>Andrew Palmer (a@codelifter.net)</Authors>
     <Company>CodeLifter LLC</Company>
-    <Description>MVVM components for MAUI and MAUI Blazor Hybrid applications using the CodeLifter platform</Description>
+    <Description>MVVM components for pure MAUI (XAML) applications using the CodeLifter platform. For MAUI Blazor Hybrid apps, use CodeLifter.MVVM.Maui.Blazor instead.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/CodeLifter-Platform/Laconia</PackageProjectUrl>
     <RepositoryUrl>https://github.com/CodeLifter-Platform/Laconia</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>mvvm;maui;blazor-hybrid;mobile;viewmodel;codelifter</PackageTags>
+    <PackageTags>mvvm;maui;xaml;mobile;viewmodel;codelifter</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
     <RootNamespace>CodeLifter.Mvvm.Maui</RootNamespace>
@@ -43,7 +43,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.51" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="9.0.51" />
   </ItemGroup>
 
   <ItemGroup>

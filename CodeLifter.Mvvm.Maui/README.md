@@ -1,26 +1,30 @@
-# Laconia.MVVM.Maui
+# CodeLifter.MVVM.Maui
 
-MVVM components for MAUI and MAUI Blazor Hybrid applications using the Laconia platform.
+MVVM components for pure MAUI (XAML) applications using the CodeLifter platform.
+
+> **Note**: For MAUI Blazor Hybrid applications, use **CodeLifter.MVVM.Maui.Blazor** instead.
+
+## Installation
+
+```bash
+dotnet add package CodeLifter.MVVM.Maui
+```
 
 ## Features
 
-### For Standard MAUI Applications
-- **ContentPageBase<TViewModel>**: Base class for MAUI ContentPage with ViewModel binding
+- **ClContentPageBase<TViewModel>**: Base class for MAUI ContentPage with ViewModel binding
 - Automatic ViewModel initialization on page appearing
 - Property change notifications
-
-### For MAUI Blazor Hybrid Applications
-- **BlazorComponent<TViewModel>**: Base component class for Blazor components in MAUI Hybrid apps
-- Automatic state management and re-rendering
+- Full support for MAUI data binding
 
 ## Usage
 
-### Standard MAUI (XAML)
+### Creating a MAUI Page with ViewModel
 
 ```csharp
-using Laconia.MVVM.Pages;
+using CodeLifter.Mvvm.Pages;
 
-public partial class MyPage : ContentPageBase<MyViewModel>
+public partial class MyPage : ClContentPageBase<MyViewModel>
 {
     public MyPage(MyViewModel viewModel) : base(viewModel)
     {
@@ -29,38 +33,50 @@ public partial class MyPage : ContentPageBase<MyViewModel>
 }
 ```
 
-In your XAML:
+### XAML Example
+
 ```xml
-<pages:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:pages="clr-namespace:Laconia.MVVM.Pages;assembly=Laconia.Mvvm.Maui"
-                       x:Class="MyApp.MyPage">
-    <Label Text="{Binding Title}" />
-</pages:ContentPageBase>
+<pages:ClContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                         xmlns:pages="clr-namespace:CodeLifter.Mvvm.Pages;assembly=CodeLifter.Mvvm.Maui"
+                         x:Class="MyApp.MyPage">
+    <StackLayout>
+        <Label Text="{Binding Title}" />
+        <Button Text="Click Me" Command="{Binding DoSomethingCommand}" />
+    </StackLayout>
+</pages:ClContentPageBase>
 ```
 
-### MAUI Blazor Hybrid
+### Registering ViewModels
+
+In your `MauiProgram.cs`:
 
 ```csharp
-@using Laconia.MVVM.Components
-@inherits BlazorComponent<MyViewModel>
-
-<h1>@VM.Title</h1>
-<button @onclick="VM.DoSomethingCommand">Click Me</button>
+builder.Services.AddTransient<MyViewModel>();
+builder.Services.AddTransient<MyPage>();
 ```
 
 ## Dependencies
 
-- Laconia.MVVM.Core - Core ViewModels and abstractions
-- Microsoft.Maui.Controls - MAUI framework
+- **CodeLifter.MVVM.Core** - Core ViewModels and abstractions
+- **Microsoft.Maui.Controls** - MAUI framework
 
 ## Platform Support
 
 This package supports:
-- ✅ MAUI (iOS, Android, macOS, Windows)
-- ✅ MAUI Blazor Hybrid
+- ✅ iOS
+- ✅ Android
+- ✅ macOS (Catalyst)
+- ✅ Windows
 
-For web-only Blazor applications, use:
-- **Blazor Server**: Laconia.MVVM
-- **Blazor WebAssembly**: Laconia.MVVM.WebAssembly
+## Related Packages
+
+- **CodeLifter.MVVM.Core** - Core MVVM abstractions and ViewModels
+- **CodeLifter.MVVM.Maui.Blazor** - MVVM components for MAUI Blazor Hybrid applications
+- **CodeLifter.MVVM** - MVVM components for Blazor Server applications
+- **CodeLifter.MVVM.WebAssembly** - MVVM components for Blazor WebAssembly applications
+
+## License
+
+MIT
 

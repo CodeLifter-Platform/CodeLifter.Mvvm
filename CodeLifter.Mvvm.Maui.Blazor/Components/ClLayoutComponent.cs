@@ -1,12 +1,12 @@
 using CodeLifter.Mvvm.ViewModels;
 using Microsoft.AspNetCore.Components;
 
-namespace CodeLifter.Mvvm.Components;
+namespace CodeLifter.Mvvm.Maui.Blazor.Components;
 
 /// <summary>
-/// Base class for MAUI Blazor Hybrid components with ViewModel binding
+/// Base class for MAUI Blazor Hybrid layout components with ViewModel binding
 /// </summary>
-public abstract class ClBlazorComponent<TViewModel> : ComponentBase, IClView<TViewModel>
+public abstract class ClLayoutComponent<TViewModel> : LayoutComponentBase, IClView<TViewModel>
     where TViewModel : IClViewModel
 {
     [Inject]
@@ -27,12 +27,5 @@ public abstract class ClBlazorComponent<TViewModel> : ComponentBase, IClView<TVi
         VM!.PropertyChanged += (_, _) => InvokeAsync(StateHasChanged);
         await base.OnInitializedAsync();
     }
-}
-
-// Backward compatibility alias
-[Obsolete("Use ClBlazorComponent<TViewModel> instead. This alias will be removed in a future version.")]
-public abstract class BlazorComponent<TViewModel> : ClBlazorComponent<TViewModel>
-    where TViewModel : IClViewModel
-{
 }
 
