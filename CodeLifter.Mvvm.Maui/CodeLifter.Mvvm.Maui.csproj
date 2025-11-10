@@ -1,15 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0;net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks>net10.0;net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
     <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-    <!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
+    <!-- <TargetFrameworks>$(TargetFrameworks);net10.0-tizen</TargetFrameworks> -->
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+
+    <!-- Java SDK Configuration for Android builds -->
+    <JavaSdkDirectory Condition="$([MSBuild]::IsOSPlatform('osx'))">/Applications/Android Studio.app/Contents/jbr/Contents/Home</JavaSdkDirectory>
 
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
@@ -20,7 +23,7 @@
 
     <!-- Package Information -->
     <PackageId>CodeLifter.MVVM.Maui</PackageId>
-    <Version>1.0.1-beta</Version>
+    <Version>1.1.2-beta</Version>
     <Title>CodeLifter.MVVM.Maui</Title>
     <Authors>Andrew Palmer (a@codelifter.net)</Authors>
     <Company>CodeLifter LLC</Company>
@@ -42,7 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.51" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.0-rc.2.25504.7" />
   </ItemGroup>
 
   <ItemGroup>

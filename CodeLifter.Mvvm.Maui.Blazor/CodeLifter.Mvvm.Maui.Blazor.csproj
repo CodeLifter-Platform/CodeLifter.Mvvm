@@ -1,13 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFrameworks>net9.0;net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+    <TargetFrameworks>net10.0;net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+
+    <!-- Disable static web assets - they're already provided by Microsoft.AspNetCore.Components.WebView.Maui -->
+    <GenerateStaticWebAssetEndpointsManifest>false</GenerateStaticWebAssetEndpointsManifest>
+    <IncludeStaticWebAssetsInPackage>false</IncludeStaticWebAssetsInPackage>
+    <GenerateStaticWebAssetsPropsFile>false</GenerateStaticWebAssetsPropsFile>
+    <GenerateStaticWebAssetsPackagePropsFile>false</GenerateStaticWebAssetsPackagePropsFile>
+    <StaticWebAssetBasePath></StaticWebAssetBasePath>
+    <DisableStaticWebAssetsBuildPropsFileGeneration>true</DisableStaticWebAssetsBuildPropsFileGeneration>
+
+    <!-- Java SDK Configuration for Android builds -->
+    <JavaSdkDirectory Condition="$([MSBuild]::IsOSPlatform('osx'))">/Applications/Android Studio.app/Contents/jbr/Contents/Home</JavaSdkDirectory>
 
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
@@ -18,7 +29,7 @@
 
     <!-- Package Information -->
     <PackageId>CodeLifter.MVVM.Maui.Blazor</PackageId>
-    <Version>1.0.1-beta</Version>
+    <Version>1.1.2-beta</Version>
     <Title>CodeLifter.MVVM.Maui.Blazor</Title>
     <Authors>Andrew Palmer (a@codelifter.net)</Authors>
     <Company>CodeLifter LLC</Company>
@@ -40,12 +51,34 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.51" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="9.0.51" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.0-rc.2.25504.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="10.0.0-rc.2.25504.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CodeLifter.Mvvm.Core\CodeLifter.Mvvm.Core.csproj" />
   </ItemGroup>
+
+  <!-- Remove static web assets from package - they're already provided by Microsoft.AspNetCore.Components.WebView.Maui -->
+  <Target Name="RemoveStaticWebAssetsFromPackage" BeforeTargets="_GetPackageFiles">
+    <ItemGroup>
+      <!-- Remove all static web asset related files from the package -->
+      <Content Remove="**\staticwebassets\**" />
+      <None Remove="**\staticwebassets\**" />
+      <None Remove="$(IntermediateOutputPath)**\Microsoft.AspNetCore.StaticWebAssetEndpoints.props" />
+      <None Remove="$(IntermediateOutputPath)**\Microsoft.AspNetCore.StaticWebAssets.props" />
+      <None Remove="$(IntermediateOutputPath)**\CodeLifter.MVVM.Maui.Blazor.props" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="RemoveStaticWebAssetsFromPackageFiles" AfterTargets="_GetPackageFiles">
+    <ItemGroup>
+      <_PackageFiles Remove="@(_PackageFiles)" Condition="$([System.String]::Copy('%(Identity)').Contains('staticwebassets'))" />
+      <_PackageFiles Remove="@(_PackageFiles)" Condition="$([System.String]::Copy('%(PackagePath)').Contains('staticwebassets'))" />
+      <_PackageFiles Remove="@(_PackageFiles)" Condition="$([System.String]::Copy('%(PackagePath)').Contains('Microsoft.AspNetCore.StaticWebAssetEndpoints.props'))" />
+      <_PackageFiles Remove="@(_PackageFiles)" Condition="$([System.String]::Copy('%(PackagePath)').Contains('CodeLifter.MVVM.Maui.Blazor.props'))" />
+    </ItemGroup>
+    <Message Importance="high" Text="Removed @(_PackageFiles->Count()) static web asset files from package" />
+  </Target>
 
 </Project>

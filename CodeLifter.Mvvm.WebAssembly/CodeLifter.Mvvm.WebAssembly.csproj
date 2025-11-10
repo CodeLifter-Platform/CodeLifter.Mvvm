@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 
     <!-- Package Information -->
     <PackageId>CodeLifter.MVVM.WebAssembly</PackageId>
-    <Version>1.0.1-beta</Version>
+    <Version>1.1.2-beta</Version>
     <Title>CodeLifter.MVVM.WebAssembly</Title>
     <Authors>Andrew Palmer (a@codelifter.net)</Authors>
     <Company>CodeLifter LLC</Company>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.0-rc.2.25502.107" />
   </ItemGroup>
 
   <ItemGroup>
